@@ -2,6 +2,7 @@
 import argparse
 import imutils
 import cv2
+import numpy
 
 # construct the argument parse and parse the arguments
 from squareDetection import ShapeDetector
@@ -20,13 +21,18 @@ ratio = image.shape[0] / float(resized.shape[0])
 # convert the resized image to grayscale, blur it slightly,
 # and threshold it
 gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
-blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY)[1]
+
+
+blurred = cv2.GaussianBlur(gray, (5, 5), cv2.BORDER_REFLECT)
+
+thresh = cv2.threshold(gray, 60, 255, cv2.THRESH_BINARY)[1]
+cv2.imshow("tresh", thresh)
+
 
 # find contours in the thresholded image and initialize the
 # shape detector
 cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                        cv2.CHAIN_APPROX_SIMPLE)
+	cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
 sd = ShapeDetector()
 
