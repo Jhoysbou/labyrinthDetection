@@ -20,7 +20,7 @@ cv2.createTrackbar('v2', 'settings', 255, 255, nothing)
 crange = [0, 0, 0, 0, 0, 0]
 
 while True:
-    img = cv2.imread("./images/hell.png")
+    img = cv2.imread("./images/image_2.jpg")
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     # считываем значения бегунков
